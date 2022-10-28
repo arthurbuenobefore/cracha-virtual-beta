@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:cracha_virtual_beta/screens/home.dart';
 
-main() {
-  runApp(CrachaVirtual());
-}
+void main() => runApp(const CrachaVirtualApp());
 
-class CrachaVirtual extends StatelessWidget {
-  Widget build(context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('EasyList'),
-        ),
-        body: Card(
-          child: Column(
-            children: <Widget>[
-              Image.asset('assets/food.jpg'),
-              Text('Food Paradise')
-            ],
-          ),
-        ),
-      ),
+class CrachaVirtualApp extends StatelessWidget {
+  const CrachaVirtualApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Material App',
+      home: Home(),
     );
   }
 }
