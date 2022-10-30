@@ -2,15 +2,17 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:cracha_virtual_beta/constants.dart';
-import 'package:cracha_virtual_beta/model/user_model.dart';
+import 'package:cracha_virtual_beta/model/user.dart';
 
 class ApiService {
-  Future<List<UserModel>?> getUsers() async {
+  Future<UserModel?> getUser(String username) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
+      var url = Uri.parse(ApiConstants.baseUrlApi + username);
       var response = await http.get(url);
+
       if (response.statusCode == 200) {
-        List<UserModel> _model = userModelFromJson(response.body);
+        UserModel _model =
+            UserModel.fromJson(response.body as Map<String, dynamic>);
         return _model;
       }
     } catch (e) {

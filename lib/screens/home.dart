@@ -3,7 +3,9 @@ import 'package:cracha_virtual_beta/model/user_model.dart';
 import 'package:cracha_virtual_beta/services/api_service.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String username;
+
+  const Home({super.key, required this.username});
 
   @override
   _HomeState createState() => _HomeState();
@@ -18,7 +20,6 @@ class _HomeState extends State<Home> {
   }
 
   void _getData() async {
-    _userModel = (await ApiService().getUsers())!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -26,7 +27,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('REST API Example'),
+        title: new Text(widget.username),
       ),
       body: _userModel == null || _userModel!.isEmpty
           ? const Center(
@@ -47,13 +48,6 @@ class _HomeState extends State<Home> {
                       ),
                       const SizedBox(
                         height: 20.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(_userModel![index].email),
-                          Text(_userModel![index].website),
-                        ],
                       ),
                     ],
                   ),

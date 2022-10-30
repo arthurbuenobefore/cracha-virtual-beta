@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cracha_virtual_beta/screens/home.dart';
+import 'package:cracha_virtual_beta/screens/form.dart';
 
 // void main() => runApp(const CrachaVirtualApp());
 
@@ -19,7 +20,9 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CrachaVirtualApp());
+    return MaterialApp(
+      home: CrachaVirtualApp(),
+    );
   }
 }
 
@@ -30,29 +33,10 @@ class CrachaVirtualApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Crachá Virtual'),
-        ),
-        body: Center(
-          child: TextButton(
-            child: Text('Push'),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return SecondPage();
-              },
-            )),
+          appBar: AppBar(
+            title: Text('Crachá Virtual'),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Home(),
+          body: MyCustomForm()),
     );
   }
 }
