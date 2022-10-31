@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cracha_virtual_beta/model/user_model.dart';
+import 'package:cracha_virtual_beta/model/user.dart';
 import 'package:cracha_virtual_beta/services/api_service.dart';
 
 class Home extends StatefulWidget {
@@ -12,48 +12,59 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late List<UserModel>? _userModel = [];
+  late Future<User> futureUser;
+
   @override
   void initState() {
     super.initState();
-    _getData();
-  }
-
-  void _getData() async {
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
+    futureUser = ApiService().fetchUser(widget.username);
+
     return Scaffold(
-      appBar: AppBar(
-        title: new Text(widget.username),
-      ),
-      body: _userModel == null || _userModel!.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _userModel!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(_userModel![index].id.toString()),
-                          Text(_userModel![index].username),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
+        appBar: AppBar(
+          title: new Text(widget.username),
+        ),
+        body: Center(
+          child: FutureBuilder<User>(
+            future: futureUser,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                //return Text(snapshot.data!.name);
+                return Container(
+                    child: Center(
+                  child: Card(
+                    child: Image.network(snapshot.data!.avatar_url),
+                    elevation: 8,
+                    shadowColor: Colors.blueGrey,
+                    margin: EdgeInsets.all(20),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.white)),
                   ),
-                );
-              },
-            ),
-    );
+                ));
+              } else if (snapshot.hasError) {
+                // return Text('${snapshot.error}');
+                return Container(
+                    child: Center(
+                  child: Card(
+                    child: ListTile(
+                      title: Text('${snapshot.error}'),
+                    ),
+                    elevation: 8,
+                    shadowColor: Colors.blueGrey,
+                    margin: EdgeInsets.all(20),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
+                ));
+              }
+              return const CircularProgressIndicator();
+            },
+          ),
+        ));
   }
 }

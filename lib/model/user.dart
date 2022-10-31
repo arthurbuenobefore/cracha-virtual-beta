@@ -1,13 +1,11 @@
-import 'dart:convert';
+class User {
+  int id;
+  String name;
+  String login;
+  String avatar_url;
+  String url;
 
-List<UserModel> userModelFromJson(String str) =>
-    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
-
-String userModelToJson(List<UserModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class UserModel {
-  UserModel({
+  User({
     required this.id,
     required this.login,
     required this.name,
@@ -15,24 +13,13 @@ class UserModel {
     required this.url,
   });
 
-  int id;
-  String name;
-  String login;
-  String avatar_url;
-  String url;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-      id: json["id"],
-      name: json["name"],
-      login: json["login"],
-      avatar_url: json["avatar_url"],
-      url: json["url"]);
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "login": login,
-        "avatar_url": avatar_url,
-        "url": url,
-      };
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      login: json['login'],
+      name: json['name'],
+      url: json['url'],
+      avatar_url: json['avatar_url'],
+    );
+  }
 }
