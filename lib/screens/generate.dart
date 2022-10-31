@@ -5,7 +5,9 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:typed_data';
@@ -36,51 +38,26 @@ class _GenerateState extends State<Generate> {
     final bodyHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).viewInsets.bottom;
 
-    void _printScreen() {
-      Printing.layoutPdf(onLayout: (PdfPageFormat format) async {
-        final doc = pw.Document();
+    ScreenshotController screenshotController = ScreenshotController();
+    // shareImage() async {
+    //   final uint8List = await screenshotController.capture();
+    //   String tempPath = (await getTemporaryDirectory()).path;
+    //   String fileName = "myFile";
+    //   if (await Permission.storage.request().isGranted) {
+    //     File file = await File('$tempPath/$fileName.png').create();
+    //     file.writeAsBytesSync(await uint8List);
+    //     await Share.shareFiles([file.path]);
+    //   }
+    // }
 
-        final image = await WidgetWraper.fromKey(key: globalKey);
-
-        doc.addPage(pw.Page(
-            pageFormat: format,
-            build: (pw.Context context) {
-              return pw.Center(
-                child: pw.Expanded(
-                  child: pw.Image(image),
-                ),
-              );
-            }));
-
-        return doc.save();
-      });
-    }
-
-    Future<void> _captureAndSharePng() async {
-      try {
-        RenderRepaintBoundary? boundary = globalKey.currentContext
-            ?.findRenderObject() as RenderRepaintBoundary?;
-        var image = await boundary!.toImage();
-        ByteData? byteData =
-            await image.toByteData(format: ImageByteFormat.png);
-        Uint8List pngBytes = byteData!.buffer.asUint8List();
-        final result = await ImageGallerySaver.saveImage(pngBytes);
-
-        //final tempDir = await getTemporaryDirectory();
-        //final file = await new File('${tempDir.path}/image.png').create();
-        //await file.writeAsBytes(pngBytes);
-
-        //final channel = const MethodChannel('channel:me.alfian.share/share');
-        //channel.invokeMethod('shareFile', 'image.png');
-
-        // final tempDir = await getTemporaryDirectory();
-        // final file = await new File('${tempDir.path}/image.jpg').create();
-        // file.writeAsBytesSync(pngBytes);
-
-        // final channel = const MethodChannel('channel:me.albie.share/share');
-        // channel.invokeMethod('shareFile', 'image.jpg');
-      } catch (e) {
-        print(e.toString());
+    Future getPdf() async {
+      final uint8List = await screenshotController.capture();
+      String tempPath = (await getTemporaryDirectory()).path;
+      String fileName = "meuCrachaVirtual";
+      if (await Permission.storage.request().isGranted) {
+        File file = await File('$tempPath/$fileName.png').create();
+        file.writeAsBytesSync(uint8List!);
+        await Share.shareFiles([file.path]);
       }
     }
 
@@ -102,34 +79,59 @@ class _GenerateState extends State<Generate> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            Container(
-                width: 300,
-                height: 500,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.grey[300],
-                  elevation: 10,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    child: Padding(
-                        padding: EdgeInsets.all(50),
-                        child: RepaintBoundary(
-                          key: globalKey,
-                          child: QrImage(
-                            size: 100,
-                            data: widget.url,
-                          ),
-                        )),
-                  ),
-                )),
+            Screenshot(
+              controller: screenshotController,
+              child: Container(
+                  width: 300,
+                  height: 500,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    color: Colors.grey[300],
+                    elevation: 10,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(50),
+                              child: RepaintBoundary(
+                                key: globalKey,
+                                child: QrImage(
+                                  data: widget.url,
+                                ),
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 0,
+                              bottom: 0,
+                              right: 0,
+                              top: 60), //apply padding to all four sides
+                          child: ElevatedButton(
+                              onPressed: getPdf,
+                              child: Text('EXPORTAR CRACHÁ'),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Color.fromRGBO(22, 101, 149,
+                                              1)), // background (button) color
+                                  //foregroundColor: Colors.white,
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                          side: BorderSide(
+                                              color:
+                                                  Color.fromRGBO(22, 101, 149, 1)))))),
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
           ])),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.print),
-        onPressed: _captureAndSharePng,
-      ),
     );
   }
 }
