@@ -60,14 +60,23 @@ class _HomeState extends State<Home> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      snapshot.data!.avatar_url,
-                                      height: 150.0,
-                                      width: 100.0,
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 0,
+                                        bottom: 0,
+                                        right: 0,
+                                        top:
+                                            40), //apply padding to all four sides
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        snapshot.data!.avatar_url,
+                                        height: 200.0,
+                                        width: 200.0,
+                                      ),
                                     ),
                                   ),
+
                                   // Image(
                                   //   image:
                                   //       NetworkImage(snapshot.data!.avatar_url),
@@ -75,25 +84,56 @@ class _HomeState extends State<Home> {
                                   //   height: 200,
                                   //   alignment: Alignment.topCenter,
                                   // ),
-                                  Text('ID: $idExib'),
-                                  Text('Nome: $nameExib'),
-                                  Text('Login: $emailExib'),
-                                  ElevatedButton(
-                                      onPressed: () {},
-                                      child: Text('GERAR QRCode'),
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty
-                                              .all<Color>(Colors
-                                                  .blueAccent), // background (button) color
-                                          //foregroundColor: Colors.white,
-                                          padding: MaterialStateProperty.all<
-                                              EdgeInsets>(EdgeInsets.all(20)),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(18.0),
-                                                  side: BorderSide(color: Colors.blueAccent)))))
+                                  Padding(
+                                    padding: EdgeInsets.all(
+                                        15), //apply padding to all four sides
+                                    child: Text('ID: $idExib',
+                                        style: TextStyle(
+                                            color: Colors.grey[800],
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16)),
+                                  ),
+
+                                  Padding(
+                                    padding: EdgeInsets.all(
+                                        5), //apply padding to all four sides
+                                    child: Text('Nome: $nameExib',
+                                        style: TextStyle(
+                                            color: Colors.grey[800],
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16)),
+                                  ),
+
+                                  Text('Login: $emailExib',
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
+
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 0,
+                                        bottom: 0,
+                                        right: 0,
+                                        top:
+                                            60), //apply padding to all four sides
+                                    child: ElevatedButton(
+                                        onPressed: () {},
+                                        child: Text('GERAR QRCode'),
+                                        style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty
+                                                .all<Color>(Colors
+                                                    .blueAccent), // background (button) color
+                                            //foregroundColor: Colors.white,
+                                            padding: MaterialStateProperty.all<
+                                                EdgeInsets>(EdgeInsets.all(20)),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(18.0),
+                                                    side: BorderSide(color: Colors.blueAccent))))),
+                                  ),
                                 ],
                               ),
                             ),
