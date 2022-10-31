@@ -1,3 +1,4 @@
+import 'package:cracha_virtual_beta/screens/generate.dart';
 import 'package:flutter/material.dart';
 import 'package:cracha_virtual_beta/model/user.dart';
 import 'package:cracha_virtual_beta/services/api_service.dart';
@@ -76,40 +77,54 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                   ),
-
-                                  // Image(
-                                  //   image:
-                                  //       NetworkImage(snapshot.data!.avatar_url),
-                                  //   width: 200,
-                                  //   height: 200,
-                                  //   alignment: Alignment.topCenter,
-                                  // ),
                                   Padding(
-                                    padding: EdgeInsets.all(
-                                        15), //apply padding to all four sides
-                                    child: Text('ID: $idExib',
-                                        style: TextStyle(
-                                            color: Colors.grey[800],
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16)),
+                                    padding: const EdgeInsets.only(
+                                        left: 70.0, top: 20),
+                                    child: Table(
+                                      columnWidths: const {
+                                        0: FlexColumnWidth(0.6),
+                                        1: FlexColumnWidth(1.5),
+                                      },
+                                      children: [
+                                        TableRow(children: [
+                                          Text(
+                                            'ID: ',
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            idExib.toString(),
+                                            style: TextStyle(fontSize: 15.0),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          Text(
+                                            "Nome: ",
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            nameExib,
+                                            style: TextStyle(fontSize: 15.0),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          Text(
+                                            "Login: ",
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            emailExib,
+                                            style: TextStyle(fontSize: 15.0),
+                                          ),
+                                        ]),
+                                      ],
+                                    ),
                                   ),
-
-                                  Padding(
-                                    padding: EdgeInsets.all(
-                                        5), //apply padding to all four sides
-                                    child: Text('Nome: $nameExib',
-                                        style: TextStyle(
-                                            color: Colors.grey[800],
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16)),
-                                  ),
-
-                                  Text('Login: $emailExib',
-                                      style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: 0,
@@ -118,21 +133,29 @@ class _HomeState extends State<Home> {
                                         top:
                                             60), //apply padding to all four sides
                                     child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Generate(
+                                                          url: snapshot
+                                                              .data!.url)));
+                                        },
                                         child: Text('GERAR QRCode'),
                                         style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty
-                                                .all<Color>(Colors
-                                                    .blueAccent), // background (button) color
+                                            backgroundColor:
+                                                MaterialStateProperty.all<Color>(
+                                                    Color.fromRGBO(22, 101, 149,
+                                                        1)), // background (button) color
                                             //foregroundColor: Colors.white,
-                                            padding: MaterialStateProperty.all<
-                                                EdgeInsets>(EdgeInsets.all(20)),
                                             shape: MaterialStateProperty.all<
                                                     RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(18.0),
-                                                    side: BorderSide(color: Colors.blueAccent))))),
+                                                        BorderRadius.circular(
+                                                            18.0),
+                                                    side: BorderSide(color: Color.fromRGBO(22, 101, 149, 1)))))),
                                   ),
                                 ],
                               ),
@@ -154,44 +177,12 @@ class _HomeState extends State<Home> {
                         ]);
                   }
                   return const CircularProgressIndicator();
-                }
-                // body: Center(
-                // child: FutureBuilder<User>(
-                //   future: futureUser,
-                //   builder: (context, snapshot) {
-                //     if (snapshot.hasData) {
-                //       return Container(
-                //             child: Center(
-                //           child: Card(
-                //             child: Image.network(snapshot.data!.avatar_url),
-                //             elevation: 8,
-                //             shadowColor: Colors.blueGrey,
-                //             margin: EdgeInsets.all(20),
-                //             shape: OutlineInputBorder(
-                //                 borderRadius: BorderRadius.circular(10),
-                //                 borderSide: BorderSide(color: Colors.white)),
-                //           ),
-                //         ));
-                // } else if (snapshot.hasError) {
-                //   return Container(
-                //       child: Center(
-                //     child: Card(
-                //       child: ListTile(
-                //         title: Text('${snapshot.error}'),
-                //       ),
-                //       elevation: 8,
-                //       shadowColor: Colors.blueGrey,
-                //       margin: EdgeInsets.all(20),
-                //       shape: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10),
-                //           borderSide: BorderSide(color: Colors.white)),
-                //     ),
-                //   ));
-                //       }
-                //       return const CircularProgressIndicator();
-                //     },
-                //   ),
-                // ));
-                )));
+                })));
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }
