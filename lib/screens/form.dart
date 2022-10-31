@@ -21,44 +21,59 @@ class _MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextField(
-                    controller: myController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: 'Insira seu nome de usuário',
-                    )),
-              ],
-            ),
-          ],
-        ),
+          child: Column(
+        children: [
+          const Image(
+            image: AssetImage('assets/logo.png'),
+            width: 200,
+            height: 200,
+            alignment: Alignment.center,
+          ),
+          Padding(
+              padding: const EdgeInsets.all(54.0),
+              child: Center(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == '') return 'Insira o nome de usuário';
+                    return null;
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: myController,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Nome de usuário',
+                  ),
+                ),
+              )),
+        ],
+      )),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (myController.text == '') {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Erro:'),
+                content: const Text('Insira um nome antes de pesquisar!'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Home(username: myController.text)));
+          }
+        },
+        label: const Text('PESQUISAR'),
+        backgroundColor: Colors.blueAccent,
       ),
-      // body: Padding(
-      //     padding: const EdgeInsets.all(16.0),
-      //     child: Center(
-      //       child: TextField(
-      //         controller: myController,
-      //         decoration: InputDecoration(
-      //           prefixIcon: Icon(Icons.search),
-      //           hintText: 'Insira seu nome de usuário',
-      //         ),
-      //       ),
-      //     )),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //             builder: (context) => Home(username: myController.text)));
-      //   },
-      //   label: const Text('PESQUISAR'),
-      //   backgroundColor: Colors.blueAccent,
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
