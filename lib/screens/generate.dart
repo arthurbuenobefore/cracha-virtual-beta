@@ -35,20 +35,7 @@ class _GenerateState extends State<Generate> {
 
   @override
   Widget build(BuildContext context) {
-    final bodyHeight = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).viewInsets.bottom;
-
     ScreenshotController screenshotController = ScreenshotController();
-    // shareImage() async {
-    //   final uint8List = await screenshotController.capture();
-    //   String tempPath = (await getTemporaryDirectory()).path;
-    //   String fileName = "myFile";
-    //   if (await Permission.storage.request().isGranted) {
-    //     File file = await File('$tempPath/$fileName.png').create();
-    //     file.writeAsBytesSync(await uint8List);
-    //     await Share.shareFiles([file.path]);
-    //   }
-    // }
 
     Future getPdf() async {
       final uint8List = await screenshotController.capture();
