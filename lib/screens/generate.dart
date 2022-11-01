@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter/rendering.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'dart:io';
-import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Generate extends StatefulWidget {
@@ -49,18 +40,6 @@ class _GenerateState extends State<Generate> {
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       Navigator.pop(context);
-      //     },
-      //     icon: Icon(Icons.chevron_left),
-      //     iconSize: 46,
-      //   ),
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      //   iconTheme: IconThemeData(color: Colors.blueAccent),
-      // ),
       body: Center(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

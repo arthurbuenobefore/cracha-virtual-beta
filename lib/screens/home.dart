@@ -2,21 +2,11 @@ import 'package:cracha_virtual_beta/screens/generate.dart';
 import 'package:flutter/material.dart';
 import 'package:cracha_virtual_beta/model/user.dart';
 import 'package:cracha_virtual_beta/services/api_service.dart';
-
-import 'package:flutter/rendering.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'dart:io';
-import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Home extends StatefulWidget {
