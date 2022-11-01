@@ -49,18 +49,18 @@ class _GenerateState extends State<Generate> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.chevron_left),
-          iconSize: 46,
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.blueAccent),
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //     icon: Icon(Icons.chevron_left),
+      //     iconSize: 46,
+      //   ),
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      //   iconTheme: IconThemeData(color: Colors.blueAccent),
+      // ),
       body: Center(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,7 +98,7 @@ class _GenerateState extends State<Generate> {
                               top: 60), //apply padding to all four sides
                           child: ElevatedButton(
                               onPressed: getPdf,
-                              child: Text('EXPORTAR CRACHÁ'),
+                              child: Text('EXPORTAR QRCODE'),
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
