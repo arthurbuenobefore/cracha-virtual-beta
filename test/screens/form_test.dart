@@ -4,25 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  // testWidgets('MyCustomForm has a Scaffold', (tester) async {
-  //   await tester.pumpWidget(const CrachaVirtualApp());
+  testWidgets('MyCustomForm has a button and FormText', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(body: MyCustomForm()),
+    ));
 
-  //   await tester.pumpWidget(const MyCustomForm());
-
-  //   final textFinder = find.byType(Center);
-  //   //final iconFinder = find.byIcon(Icons.person);
-
-  //   expect(textFinder, findsOneWidget);
-  //   //expect(iconFinder, findsOneWidget);
-  // });
-
-  testWidgets("Flutter Widget Test", (WidgetTester tester) async {
-    await tester.pumpWidget(const MyCustomForm());
-    print(tester.allRenderObjects);
-    //var textField = find.byType(TextField);
-    //expect(textField, findsOneWidget);
-    // await tester.enterText(textField, 'Flutter Devs');
-    // expect(find.text('Flutter Devs'), findsOneWidget);
-    // print('Flutter Devs');
+    final formTextField = find.byType(TextFormField);
+    final buttonFinder = find.text('PESQUISAR');
+    expect(buttonFinder, findsOneWidget);
+    expect(formTextField, findsOneWidget);
   });
 }
