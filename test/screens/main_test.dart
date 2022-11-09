@@ -8,6 +8,8 @@ void main() {
 
     final typeFinder = find.byType(MaterialApp);
     final iconFinder = find.byIcon(Icons.person);
+    final buttonFinder = find.text('PESQUISAR');
+    expect(buttonFinder, findsOneWidget);
 
     expect(typeFinder, findsOneWidget);
     expect(iconFinder, findsOneWidget);

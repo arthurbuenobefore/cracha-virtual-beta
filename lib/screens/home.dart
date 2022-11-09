@@ -158,19 +158,20 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 0,
-                                                bottom: 0,
+                                                bottom: 20,
                                                 right: 0,
                                                 top:
                                                     20), //apply padding to all four sides
                                             child: ElevatedButton(
                                                 onPressed: getPdf,
-                                                child: Text('EXPORTAR CRACHÁ'),
+                                                child: const Text(
+                                                    'EXPORTAR CRACHÁ'),
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                         MaterialStateProperty.all<Color>(
-                                                            Color.fromRGBO(
+                                                            const Color.fromRGBO(
                                                                 22,
                                                                 101,
                                                                 149,
@@ -182,9 +183,10 @@ class _HomeState extends State<Home> {
                                                             borderRadius:
                                                                 BorderRadius.circular(
                                                                     18.0),
-                                                            side:
-                                                                BorderSide(color: Color.fromRGBO(22, 101, 149, 1)))))),
+                                                            side: BorderSide(color: Color.fromRGBO(22, 101, 149, 1)))))),
                                           ),
+                                          const Text(
+                                              'Arraste para o lado para ver seu QrCode'),
                                         ],
                                       ),
                                     ),
